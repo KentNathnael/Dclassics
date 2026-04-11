@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">My Application</string>
+    <string name="login_welcome">Welcome to D'Classics</string>
+    <string name="email_label">Email</string>
+    <string name="username_hint">blabla@mail.com</string>
+    <string name="password_label">Password</string>
+    <string name="password_hint">alphanumeric</string>
 </resources>
