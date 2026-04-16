@@ -1,8 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">My Application</string>
-    <string name="login_welcome">Welcome to D'Classics</string>
-    <string name="email_label">Email</string>
-    <string name="username_hint">blabla@mail.com</string>
+    <string name="login_welcome">Welcome to \n D\'Classics</string>
+    <string name="email_label">Username</string>
+    <string name="username_hint">Type your username</string>
     <string name="password_label">Password</string>
-    <string name="password_hint">alphanumeric</string>
+    <string name="password_hint">Type your Password</string>
+    <string name="login">Log In</string>
+    <string name="error_username">Username must be filled</string>
+    <string name="error_password">Password must be filled</string>
+    <string name="error_password_format">Password must be alphanumeric</string>
 </resources>
