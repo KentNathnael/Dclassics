@@ -6,6 +6,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import android.content.SharedPreferences;
+import android.content.Intent;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 public class LoginActivity extends AppCompatActivity {
@@ -41,6 +44,42 @@ public class LoginActivity extends AppCompatActivity {
                     break;
             }
             return false;
+
         });
+
+        btnLogin.setOnClickListener(v -> validateLogin());
+    }
+
+    protected void validateLogin(){
+        String username = etUsername.getText().toString().trim();
+        String password = etPassword.getText().toString().trim();
+
+        if(username.isEmpty()){
+            etUsername.setError(getString(R.string.error_username));
+            etUsername.requestFocus();
+            return;
+        }
+
+        if(password.isEmpty()){
+            etPassword.setError(getString(R.string.error_password));
+            etPassword.requestFocus();
+            return;
+        }
+
+        if(!password.matches(".*[a-zA-Z].*") || !password.matches(".*[0-9].*")){
+            etPassword.setError(getString(R.string.error_password_format));
+            etPassword.requestFocus();
+            return;
+        }
+
+        SharedPreferences preferences = getSharedPreferences("UserSession", MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString("username", username);
+        editor.apply();
+
+        Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+        startActivity(intent);
+        finish();
+
     }
 }
