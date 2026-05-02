@@ -12,8 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplication"
         tools:targetApi="31">
-
-        <!--
+        <!-- Login -->
         <activity
             android:name=".LoginActivity"
             android:exported="true">
@@ -23,18 +22,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        -->
-<!--        <activity android:name=".HomeActivity"/>-->
-        <activity
-            android:name=".StoreActivity"
-            android:exported="true">
 
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
+        <!-- HOME -->
+        <activity android:name=".HomeActivity" />
 
-        </activity>
+        <!-- BOOKS -->
+<!--        <activity android:name=".BooksActivity" />-->
+
+        <!-- STORES -->
+        <activity android:name=".StoreActivity" />
     </application>
 
 </manifest>

@@ -207,7 +207,6 @@
                 android:id="@+id/tvStores"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
                 android:text="Book Stores"
                 android:textColor="@color/primary"
                 android:textSize="22sp"
@@ -217,8 +216,37 @@
                 android:id="@+id/rvStores"
                 android:layout_width="match_parent"
                 android:layout_height="220dp"
-                android:layout_marginTop="12dp"
+                android:layout_marginTop="16dp"
                 android:nestedScrollingEnabled="false" />
+
+            <LinearLayout
+                android:id="@+id/storeCarouselControls"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <ImageButton
+                    android:id="@+id/btnStorePrev"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:background="@android:color/transparent"
+                    android:src="@android:drawable/ic_media_previous"
+                    app:tint="@color/primary" />
+
+                <Space
+                    android:layout_width="120dp"
+                    android:layout_height="1dp" />
+
+                <ImageButton
+                    android:id="@+id/btnStoreNext"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:background="@android:color/transparent"
+                    android:src="@android:drawable/ic_media_next"
+                    app:tint="@color/primary" />
+            </LinearLayout>
 
         </LinearLayout>
 
