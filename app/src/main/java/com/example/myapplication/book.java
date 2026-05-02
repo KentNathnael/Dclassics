@@ -5,10 +5,16 @@ public class book {
     private String title;
     private String author;
 
-    public book(int bookID, String title, String author){
+    private double rating;
+    public book(int bookID, String title, String author, double rating){
         this.bookID = bookID;
         this.title = title;
         this.author = author;
+        this.rating = rating;
+    }
+
+    public double getRating() {
+        return rating;
     }
 
     public int getBookID() {
@@ -21,5 +27,21 @@ public class book {
 
     public String getTitle() {
         return title;
+    }
+
+    public void setBookID(int bookID) {
+        this.bookID = bookID;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+
+    public void setRating(double rating) {
+        this.rating = rating;
     }
 }
