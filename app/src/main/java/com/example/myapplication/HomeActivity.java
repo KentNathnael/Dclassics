@@ -27,7 +27,7 @@ public class HomeActivity extends AppCompatActivity {
     private RecyclerView rvFeatured, rvRecommended, rvStores;
     private List<book> featuredBookList, recommendedBookList;
     private List<Store> storeList;
-    private BookAdapter FeaturedBookAdapter, RecommendedBookAdapter;
+    private HomeBookAdapter FeaturedBookAdapter, RecommendedBookAdapter;
     private StoreAdapter storeAdapter;
 
     @Override
@@ -68,10 +68,10 @@ public class HomeActivity extends AppCompatActivity {
             isMenuVisible = false;
         });
 
-//        menuBooks.setOnClickListener(v -> {
-//            Intent intent = new Intent(HomeActivity.this, BooksActivity.class);
-//            startActivity(intent);
-//        });
+        menuBooks.setOnClickListener(v -> {
+            Intent intent = new Intent(HomeActivity.this, BookActivity.class);
+            startActivity(intent);
+        });
 
         menuStores.setOnClickListener(v -> {
             Intent intent = new Intent(HomeActivity.this, StoreActivity.class);
@@ -93,12 +93,12 @@ public class HomeActivity extends AppCompatActivity {
         rvFeatured = findViewById(R.id.rvFeatured);
 
         featuredBookList = new ArrayList<>();
-        featuredBookList.add(new book(R.drawable.logo, "Atomic Habits", "James", 4.9));
-        featuredBookList.add(new book(R.drawable.logo, "Atomic Habits", "James", 3.8));
-        featuredBookList.add(new book(R.drawable.logo, "Atomic Habits", "James", 4));
-        featuredBookList.add(new book(R.drawable.logo, "Atomic Habits", "James", 4.5));
+        featuredBookList.add(new book(R.drawable.logo, "Atomic Habits", "James", 4.9, "Rp 139.000"));
+        featuredBookList.add(new book(R.drawable.logo, "Atomic Habits", "James", 3.8, "Rp 139.000"));
+        featuredBookList.add(new book(R.drawable.logo, "Atomic Habits", "James", 4, "Rp 139.000"));
+        featuredBookList.add(new book(R.drawable.logo, "Atomic Habits", "James", 4.5, "Rp 139.000"));
 
-        FeaturedBookAdapter = new BookAdapter(featuredBookList);
+        FeaturedBookAdapter = new HomeBookAdapter(featuredBookList);
 
         rvFeatured.setLayoutManager(
                 new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
@@ -108,12 +108,12 @@ public class HomeActivity extends AppCompatActivity {
         rvRecommended = findViewById(R.id.rvRecommended);
 
         recommendedBookList = new ArrayList<>();
-        recommendedBookList.add(new book(R.drawable.logo, "Atomic Habits", "James", 5));
-        recommendedBookList.add(new book(R.drawable.logo, "Atomic Habits", "James", 5));
-        recommendedBookList.add(new book(R.drawable.logo, "Atomic Habits", "James", 5));
-        recommendedBookList.add(new book(R.drawable.logo, "Atomic Habits", "James", 5));
+        recommendedBookList.add(new book(R.drawable.logo, "Atomic Habits", "James", 5, "Rp 139.000"));
+        recommendedBookList.add(new book(R.drawable.logo, "Atomic Habits", "James", 5, "Rp 139.000"));
+        recommendedBookList.add(new book(R.drawable.logo, "Atomic Habits", "James", 5, "Rp 139.000"));
+        recommendedBookList.add(new book(R.drawable.logo, "Atomic Habits", "James", 5, "Rp 139.000"));
 
-        RecommendedBookAdapter = new BookAdapter(recommendedBookList);
+        RecommendedBookAdapter = new HomeBookAdapter(recommendedBookList);
 
         rvRecommended.setLayoutManager(
                 new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
@@ -125,19 +125,6 @@ public class HomeActivity extends AppCompatActivity {
         btnStoreNext = findViewById(R.id.btnStoreNext);
 
         setupStoreCarousel();
-
-        menuLogout.setOnClickListener(v -> {
-
-            // 1. clear session
-            SharedPreferences.Editor editor = preferences.edit();
-            editor.clear();
-            editor.apply();
-
-            // 2. pindah ke login
-            Intent intent = new Intent(HomeActivity.this, LoginActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            startActivity(intent);
-        });
     }
     protected void togglehamburger() {
         if (isMenuVisible) {

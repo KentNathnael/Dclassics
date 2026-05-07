@@ -27,7 +27,7 @@
         <activity android:name=".HomeActivity" />
 
         <!-- BOOKS -->
-<!--        <activity android:name=".BooksActivity" />-->
+        <activity android:name=".BookActivity" />
 
         <!-- STORES -->
         <activity android:name=".StoreActivity" />

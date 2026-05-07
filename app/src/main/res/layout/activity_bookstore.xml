@@ -1,30 +1,20 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-
+    android:id="@+id/mainLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#DEE2FF"
     android:padding="20dp">
 
     <!-- MENU -->
-    <ImageView
+    <ImageButton
         android:id="@+id/btnMenu"
         android:layout_width="28dp"
         android:layout_height="28dp"
         android:src="@android:drawable/ic_menu_sort_by_size"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
-
-    <!-- BELL -->
-    <ImageView
-        android:id="@+id/btnNotif"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        android:src="@android:drawable/ic_dialog_info"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginEnd="12dp"/>
-
 
     <!-- TITLE -->
     <TextView
@@ -38,6 +28,81 @@
         android:layout_marginTop="16dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/btnMenu"/>
+
+    <!-- Dropdown -->
+    <LinearLayout
+        android:id="@+id/menuDropdown"
+        android:layout_width="130dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/bg_hamburger"
+        android:elevation="8dp"
+        android:orientation="vertical"
+        android:padding="12dp"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="@id/btnMenu"
+        app:layout_constraintTop_toBottomOf="@id/btnMenu">
+
+        <TextView
+            android:id="@+id/menuHome"
+            style="@style/Heading3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:paddingVertical="8dp"
+            android:text="Home"
+            android:textColor="@color/primary_dark"
+            android:background="@color/primary_light"
+            />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/primary_dark" />
+
+        <TextView
+            android:id="@+id/menuBooks"
+            style="@style/Heading3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:paddingVertical="8dp"
+            android:text="Books"
+            android:textColor="@color/primary_dark"
+            android:background="@color/primary_light"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/primary_dark" />
+
+        <TextView
+            android:id="@+id/menuStores"
+            style="@style/Heading3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:paddingVertical="8dp"
+            android:text="Stores"
+            android:textColor="@color/primary_dark"
+            android:background="@color/primary_light"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/primary_dark" />
+
+        <TextView
+            android:id="@+id/menuLogout"
+            style="@style/Heading3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:paddingVertical="8dp"
+            android:text="Log Out"
+            android:textColor="@color/primary_dark"
+            android:background="@color/primary_light"/>
+    </LinearLayout>
 
     <!-- LIST -->
     <androidx.recyclerview.widget.RecyclerView

@@ -2,15 +2,14 @@ package com.example.myapplication;
 
 public class book {
     private int bookID;
-    private String title;
-    private String author;
-
+    private String title, author, price;
     private double rating;
-    public book(int bookID, String title, String author, double rating){
+    public book(int bookID, String title, String author, double rating, String price){
         this.bookID = bookID;
         this.title = title;
         this.author = author;
         this.rating = rating;
+        this.price = price;
     }
 
     public double getRating() {
@@ -27,6 +26,10 @@ public class book {
 
     public String getTitle() {
         return title;
+    }
+
+    public String getPrice() {
+        return price;
     }
 
     public void setBookID(int bookID) {
