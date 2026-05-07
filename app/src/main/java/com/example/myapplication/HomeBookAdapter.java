@@ -11,11 +11,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
-public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookViewHolder> {
+public class HomeBookAdapter extends RecyclerView.Adapter<HomeBookAdapter.BookViewHolder> {
 
     private List<book> bookList;
 
-    public BookAdapter(List<book> bookList) {
+    public HomeBookAdapter(List<book> bookList) {
         this.bookList = bookList;
     }
 
@@ -23,7 +23,7 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookViewHolder
     @Override
     public BookViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_featured_book, parent, false);
+                .inflate(R.layout.item_books_home, parent, false);
         return new BookViewHolder(view);
     }
 
