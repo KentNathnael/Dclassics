@@ -25,6 +25,9 @@ public class BookActivity extends AppCompatActivity {
     private ImageButton btnMenu;
     private LinearLayout menuDropdown;
     private boolean isMenuVisible = false;
+    private TextView tabFiction, tabNonFiction;
+    private List<book> fictionBooks, nonFictionBooks;
+    private List<book> fictionNewArrivals, nonFictionNewArrivals;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,9 +36,6 @@ public class BookActivity extends AppCompatActivity {
 
         rvBooks = findViewById(R.id.rvBooks);
         rvNewArrivals = findViewById(R.id.rvNewArrivals);
-
-        setupCatalogBooks();
-        setupNewArrivals();
 
         //        hamburger
         btnMenu = findViewById(R.id.btnMenu);
@@ -83,37 +83,80 @@ public class BookActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
+        tabFiction = findViewById(R.id.tabFiction);
+        tabNonFiction = findViewById(R.id.tabNonFiction);
+
+        rvBooks = findViewById(R.id.rvBooks);
+        rvNewArrivals = findViewById(R.id.rvNewArrivals);
+
+        setupData();
+        setupRecyclerViews();
+        showFiction();
+
+        tabFiction.setOnClickListener(v -> showFiction());
+        tabNonFiction.setOnClickListener(v -> showNonFiction());
     }
 
-    private void setupCatalogBooks() {
-        catalogBooks = new ArrayList<>();
+    private void setupData() {
+        fictionBooks = new ArrayList<>();
+        fictionBooks.add(new book(R.drawable.inabluemoon, "In a Blue Moon", "Ilana Tan", 4, "Rp 139.000"));
+        fictionBooks.add(new book(R.drawable.f2, "Judge Stone", "Viola Davis, James Patterson", 3.9, "Rp 279.000"));
+        fictionBooks.add(new book(R.drawable.f3, "To the Bridge of The World", "Eowyn Ivey", 3.5, "Rp 339.000"));
+        fictionBooks.add(new book(R.drawable.theoofgolden, "Theo Of Golden", "Allen Levi", 4.8,"Rp 449.000"));
 
-        catalogBooks.add(new book(R.drawable.logo, "In a Blue Moon", "Ilana Tan", 4, "Rp 132.000"));
-        catalogBooks.add(new book(R.drawable.logo, "Judge Stone", "D. A. Mishani", 3.9, "Rp 149.000"));
-        catalogBooks.add(new book(R.drawable.logo, "To the Bridge", "Nancy Rommelmann", 3.5, "Rp 128.000"));
-        catalogBooks.add(new book(R.drawable.logo, "Just Friends", "Ana Huang", 4.8,"Rp 139.000"));
+        nonFictionBooks = new ArrayList<>();
+        nonFictionBooks.add(new book(R.drawable.nonf1, "Strangers", "Belle Burden", 4, "Rp 739.000"));
+        nonFictionBooks.add(new book(R.drawable.atomichab, "Atomic Habits", "James Clear", 4, "Rp 279.000"));
+        nonFictionBooks.add(new book(R.drawable.nonf3, "The Night We Met", "Abby Jimenez", 4, "Rp 399.000"));
+        nonFictionBooks.add(new book(R.drawable.murdle, "Murdle Vol.1", "G.T.Karber", 4, "Rp 449.000"));
 
-        catalogAdapter = new CatalogBookAdapter(catalogBooks);
+        fictionNewArrivals = new ArrayList<>();
+        fictionNewArrivals.add(new book(R.drawable.nf1, "Just Friend", "Haley Pham", 3, "Rp 239.000"));
+        fictionNewArrivals.add(new book(R.drawable.nf2, "The Correspondent", "Virginia Evans", 3, "Rp 279.000"));
+        fictionNewArrivals.add(new book(R.drawable.heated_riv, "Heated Rivalry", "Rachel Reid", 4,"Rp 549.000"));
+        fictionNewArrivals.add(new book(R.drawable.nf4, "The Faraway Inn", "Sarah Beth Durst", 6, "Rp 319.000"));
 
+        nonFictionNewArrivals = new ArrayList<>();
+        nonFictionNewArrivals.add(new book(R.drawable.newnonf1, "Night", "Elie Wiesel", 4, "Rp 539.000"));
+        nonFictionNewArrivals.add(new book(R.drawable.newnonf2, "The Let Them Theory", "Mel Robbins", 4, "Rp 779.000"));nonFictionNewArrivals.add(new book(R.drawable.newnonf3, "Project Hail Mary", "Andry Weir", 4, "Rp 849.000"));nonFictionNewArrivals.add(new book(R.drawable.stand, "Stand", "Cory Booker", 4, "Rp 429.000"));
+    }
+
+    private void setupRecyclerViews() {
         rvBooks.setLayoutManager(
                 new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         );
-        rvBooks.setAdapter(catalogAdapter);
-    }
-
-    private void setupNewArrivals() {
-        newArrivalBooks = new ArrayList<>();
-
-        newArrivalBooks.add(new book(R.drawable.logo, "The Correspondent", "Virginia Evans", 3, "Rp 155.000"));
-        newArrivalBooks.add(new book(R.drawable.logo, "The Let Them Theory", "Mel Robbins", 4,"Rp 165.000"));
-        newArrivalBooks.add(new book(R.drawable.logo, "Murdle", "G. T. Karber", 6, "Rp 120.000"));
-
-        newArrivalAdapter = new CatalogBookAdapter(newArrivalBooks);
 
         rvNewArrivals.setLayoutManager(
                 new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         );
+    }
+
+    private void showFiction() {
+        catalogAdapter = new CatalogBookAdapter(fictionBooks);
+        newArrivalAdapter = new CatalogBookAdapter(fictionNewArrivals);
+
+        rvBooks.setAdapter(catalogAdapter);
         rvNewArrivals.setAdapter(newArrivalAdapter);
+
+        tabFiction.setTextColor(getColor(R.color.primary_dark));
+        tabNonFiction.setTextColor(getColor(R.color.dark_gray));
+
+        tabFiction.setPaintFlags(tabFiction.getPaintFlags() | android.graphics.Paint.UNDERLINE_TEXT_FLAG);
+        tabNonFiction.setPaintFlags(tabNonFiction.getPaintFlags() & (~android.graphics.Paint.UNDERLINE_TEXT_FLAG));
+    }
+
+    private void showNonFiction() {
+        catalogAdapter = new CatalogBookAdapter(nonFictionBooks);
+        newArrivalAdapter = new CatalogBookAdapter(nonFictionNewArrivals);
+
+        rvBooks.setAdapter(catalogAdapter);
+        rvNewArrivals.setAdapter(newArrivalAdapter);
+
+        tabNonFiction.setTextColor(getColor(R.color.primary_dark));
+        tabFiction.setTextColor(getColor(R.color.dark_gray));
+
+        tabNonFiction.setPaintFlags(tabNonFiction.getPaintFlags() | android.graphics.Paint.UNDERLINE_TEXT_FLAG);
+        tabFiction.setPaintFlags(tabFiction.getPaintFlags() & (~android.graphics.Paint.UNDERLINE_TEXT_FLAG));
     }
 
     protected void togglehamburger() {

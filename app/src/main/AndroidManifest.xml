@@ -31,6 +31,9 @@
 
         <!-- STORES -->
         <activity android:name=".StoreActivity" />
+
+        <!-- BOOKS DETAIL -->
+        <activity android:name=".BookDetailActivity" />
     </application>
 
 </manifest>

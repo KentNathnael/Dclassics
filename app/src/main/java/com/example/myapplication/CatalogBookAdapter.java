@@ -37,14 +37,14 @@ public class CatalogBookAdapter extends RecyclerView.Adapter<CatalogBookAdapter.
         holder.tvAuthor.setText(currentBook.getAuthor());
         holder.tvPrice.setText(currentBook.getPrice());
 
-//        holder.itemView.setOnClickListener(v -> {
-//            Intent intent = new Intent(v.getContext(), BookDetailActivity.class);
-//            intent.putExtra("image", currentBook.getBookID());
-//            intent.putExtra("title", currentBook.getTitle());
-//            intent.putExtra("author", currentBook.getAuthor());
-//            intent.putExtra("price", currentBook.getPrice());
-//            v.getContext().startActivity(intent);
-//        });
+        holder.itemView.setOnClickListener(v -> {
+            Intent intent = new Intent(v.getContext(), BookDetailActivity.class);
+            intent.putExtra("image", currentBook.getBookID());
+            intent.putExtra("title", currentBook.getTitle());
+            intent.putExtra("author", currentBook.getAuthor());
+            intent.putExtra("price", currentBook.getPrice());
+            v.getContext().startActivity(intent);
+        });
     }
 
     @Override

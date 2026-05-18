@@ -185,15 +185,32 @@
                 android:nestedScrollingEnabled="false" />
 
             <!-- Recommended -->
-            <TextView
-                android:id="@+id/tvRecommended"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:id="@+id/llRecommended"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:text="Recommended Books"
-                android:textColor="@color/primary"
-                android:textSize="22sp"
-                android:textStyle="bold" />
+                android:layout_marginTop="20dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tvRecommended"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Recommended Books"
+                    android:textColor="@color/primary"
+                    android:textSize="22sp"
+                    android:textStyle="bold"/>
+
+                <ImageButton
+                    android:id="@+id/btnRecommendedMore"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:background="@android:color/transparent"
+                    android:src="@drawable/next_but"
+                    app:tint="@color/primary_dark"/>
+            </LinearLayout>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvRecommended"
@@ -203,15 +220,33 @@
                 android:nestedScrollingEnabled="false" />
 
             <!-- Stores -->
-            <TextView
-                android:id="@+id/tvStores"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:id="@+id/llStores"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:text="Book Stores"
-                android:textColor="@color/primary"
-                android:textSize="22sp"
-                android:textStyle="bold" />
+                android:layout_marginTop="20dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tvStores"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Book Stores"
+                    android:textColor="@color/primary"
+                    android:textSize="22sp"
+                    android:textStyle="bold" />
+
+                <ImageButton
+                    android:id="@+id/btnStoreMore"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:background="@android:color/transparent"
+                    android:src="@drawable/next_but"
+                    app:tint="@color/primary_dark"/>
+
+            </LinearLayout>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvStores"
@@ -219,6 +254,7 @@
                 android:layout_height="220dp"
                 android:layout_marginTop="12dp"
                 android:nestedScrollingEnabled="false" />
+
 
             <LinearLayout
                 android:id="@+id/storeCarouselControls"
