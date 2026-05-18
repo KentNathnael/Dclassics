@@ -29,6 +29,7 @@ public class HomeActivity extends AppCompatActivity {
     private List<Store> storeList;
     private HomeBookAdapter FeaturedBookAdapter, RecommendedBookAdapter;
     private StoreAdapter storeAdapter;
+    private LinearLayout llRecommended, llStores;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,10 +94,10 @@ public class HomeActivity extends AppCompatActivity {
         rvFeatured = findViewById(R.id.rvFeatured);
 
         featuredBookList = new ArrayList<>();
-        featuredBookList.add(new book(R.drawable.logo, "Atomic Habits", "James", 4.9, "Rp 139.000"));
-        featuredBookList.add(new book(R.drawable.logo, "Atomic Habits", "James", 3.8, "Rp 139.000"));
-        featuredBookList.add(new book(R.drawable.logo, "Atomic Habits", "James", 4, "Rp 139.000"));
-        featuredBookList.add(new book(R.drawable.logo, "Atomic Habits", "James", 4.5, "Rp 139.000"));
+        featuredBookList.add(new book(R.drawable.inabluemoon, "In A Blue Moon", "James", 4.6, "Rp 139.000"));
+        featuredBookList.add(new book(R.drawable.theoofgolden, "Theo Of Golden", "James", 4.6, "Rp 139.000"));
+        featuredBookList.add(new book(R.drawable.atomichab, "Atomic Habits", "James", 4.6, "Rp 139.000"));
+        featuredBookList.add(new book(R.drawable.hujan, "Hujan", "James", 4.6, "Rp 139.000"));
 
         FeaturedBookAdapter = new HomeBookAdapter(featuredBookList);
 
@@ -108,10 +109,9 @@ public class HomeActivity extends AppCompatActivity {
         rvRecommended = findViewById(R.id.rvRecommended);
 
         recommendedBookList = new ArrayList<>();
-        recommendedBookList.add(new book(R.drawable.logo, "Atomic Habits", "James", 5, "Rp 139.000"));
-        recommendedBookList.add(new book(R.drawable.logo, "Atomic Habits", "James", 5, "Rp 139.000"));
-        recommendedBookList.add(new book(R.drawable.logo, "Atomic Habits", "James", 5, "Rp 139.000"));
-        recommendedBookList.add(new book(R.drawable.logo, "Atomic Habits", "James", 5, "Rp 139.000"));
+        recommendedBookList.add(new book(R.drawable.heated_riv, "Heated Rivarly", "James", 4.9, "Rp 139.000"));
+        recommendedBookList.add(new book(R.drawable.stand, "Stand", "James", 4.9, "Rp 139.000"));
+        recommendedBookList.add(new book(R.drawable.murdle, "Murdle", "James", 4.9, "Rp 139.000"));
 
         RecommendedBookAdapter = new HomeBookAdapter(recommendedBookList);
 
@@ -125,6 +125,19 @@ public class HomeActivity extends AppCompatActivity {
         btnStoreNext = findViewById(R.id.btnStoreNext);
 
         setupStoreCarousel();
+
+        llRecommended = findViewById(R.id.llRecommended);
+        llStores = findViewById(R.id.llStores);
+
+        llRecommended.setOnClickListener(v -> {
+            Intent intent = new Intent(HomeActivity.this, BookActivity.class);
+            startActivity(intent);
+        });
+
+        llStores.setOnClickListener(v -> {
+            Intent intent = new Intent(HomeActivity.this, StoreActivity.class);
+            startActivity(intent);
+        });
     }
     protected void togglehamburger() {
         if (isMenuVisible) {
@@ -139,9 +152,9 @@ public class HomeActivity extends AppCompatActivity {
     private void setupStoreCarousel() {
         storeList = new ArrayList<>();
 
-        storeList.add(new Store(R.drawable.logo, "Gramedia - Grand Indonesia"));
-        storeList.add(new Store(R.drawable.logo, "Kinokuniya - Plaza Senayan"));
-        storeList.add(new Store(R.drawable.logo, "Periplus - PIM"));
+        storeList.add(new Store(R.drawable.gramedia, "Gramedia - Grand Indonesia"));
+        storeList.add(new Store(R.drawable.kino, "Kinokuniya - Plaza Senayan"));
+        storeList.add(new Store(R.drawable.periplus, "Periplus - PIM"));
 
         storeAdapter = new StoreAdapter(storeList);
 
