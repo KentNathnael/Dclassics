@@ -166,6 +166,21 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
+            <!-- Not Found (shown only when search has no results) -->
+            <TextView
+                android:id="@+id/tvNotFound"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                android:layout_marginBottom="40dp"
+                android:gravity="center"
+                android:text="No books found"
+                android:textColor="@color/dark_gray"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:visibility="gone"
+                tools:ignore="HardcodedText" />
+
             <!-- Featured -->
             <TextView
                 android:id="@+id/tvFeatured"
@@ -180,7 +195,7 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvFeatured"
                 android:layout_width="match_parent"
-                android:layout_height="220dp"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
                 android:nestedScrollingEnabled="false" />
 
