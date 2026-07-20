@@ -1,5 +1,6 @@
 package com.example.myapplication;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,6 +38,15 @@ public class HomeBookAdapter extends RecyclerView.Adapter<HomeBookAdapter.BookVi
         holder.tvBookAuthor.setText(currentBook.getAuthor());
         holder.tvStars.setText(getStars(currentBook.getRating()));
         holder.tvRating.setText(String.format("%.1f", tvRating));
+
+        holder.itemView.setOnClickListener(v -> {
+            Intent intent = new Intent(v.getContext(), BookDetailActivity.class);
+            intent.putExtra("image", currentBook.getBookID());
+            intent.putExtra("title", currentBook.getTitle());
+            intent.putExtra("author", currentBook.getAuthor());
+            intent.putExtra("price", currentBook.getPrice());
+            v.getContext().startActivity(intent);
+        });
     }
 
     @Override

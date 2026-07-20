@@ -3,7 +3,10 @@ package com.example.myapplication;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -22,12 +25,16 @@ public class BookActivity extends AppCompatActivity {
     private CatalogBookAdapter catalogAdapter, newArrivalAdapter;
     private List<book> catalogBooks, newArrivalBooks;
     private TextView menuHome, menuBooks, menuStores, menuLogout;
+    private TextView tvNewArrivals;
     private ImageButton btnMenu;
     private LinearLayout menuDropdown;
     private boolean isMenuVisible = false;
     private TextView tabFiction, tabNonFiction;
     private List<book> fictionBooks, nonFictionBooks;
     private List<book> fictionNewArrivals, nonFictionNewArrivals;
+    private EditText etSearch;
+    private boolean isFictionSelected = true;
+    private TextView tvNotFound;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,16 +92,82 @@ public class BookActivity extends AppCompatActivity {
 
         tabFiction = findViewById(R.id.tabFiction);
         tabNonFiction = findViewById(R.id.tabNonFiction);
+        tvNotFound = findViewById(R.id.tvNotFound);
 
         rvBooks = findViewById(R.id.rvBooks);
         rvNewArrivals = findViewById(R.id.rvNewArrivals);
+        tvNewArrivals = findViewById(R.id.tvNewArrivals);
 
         setupData();
         setupRecyclerViews();
         showFiction();
 
-        tabFiction.setOnClickListener(v -> showFiction());
-        tabNonFiction.setOnClickListener(v -> showNonFiction());
+        tabFiction.setOnClickListener(v -> {
+            etSearch.setText("");
+            showFiction();
+        });
+        tabNonFiction.setOnClickListener(v -> {
+            etSearch.setText("");
+            showNonFiction();
+        });
+
+        etSearch = findViewById(R.id.etSearch);
+        etSearch.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                filterBooks(s.toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {}
+        });
+    }
+
+    private void filterBooks(String query) {
+        List<book> sourceCatalog = isFictionSelected ? fictionBooks : nonFictionBooks;
+        List<book> sourceNewArrivals = isFictionSelected ? fictionNewArrivals : nonFictionNewArrivals;
+
+        List<book> filteredCatalog = filterByTitle(sourceCatalog, query);
+        List<book> filteredNewArrivals = filterByTitle(sourceNewArrivals, query);
+
+        catalogAdapter = new CatalogBookAdapter(filteredCatalog);
+        newArrivalAdapter = new CatalogBookAdapter(filteredNewArrivals);
+
+        rvBooks.setAdapter(catalogAdapter);
+        rvNewArrivals.setAdapter(newArrivalAdapter);
+
+        boolean catalogEmpty = filteredCatalog.isEmpty();
+        boolean newArrivalsEmpty = filteredNewArrivals.isEmpty();
+
+        rvBooks.setVisibility(catalogEmpty ? View.GONE : View.VISIBLE);
+        tvNewArrivals.setVisibility(newArrivalsEmpty ? View.GONE : View.VISIBLE);
+        rvNewArrivals.setVisibility(newArrivalsEmpty ? View.GONE : View.VISIBLE);
+
+        tvNotFound.setVisibility((catalogEmpty && newArrivalsEmpty) ? View.VISIBLE : View.GONE);
+    }
+
+    private List<book> filterByTitle(List<book> books, String query) {
+        if (query == null || query.trim().isEmpty()) {
+            return books;
+        }
+        String lowerQuery = query.trim().toLowerCase();
+        List<book> filtered = new ArrayList<>();
+        for (book b : books) {
+            if (b.getTitle() != null && b.getTitle().toLowerCase().contains(lowerQuery)) {
+                filtered.add(b);
+            }
+        }
+        return filtered;
+    }
+
+    private void resetSectionVisibility() {
+        rvBooks.setVisibility(View.VISIBLE);
+        tvNewArrivals.setVisibility(View.VISIBLE);
+        rvNewArrivals.setVisibility(View.VISIBLE);
+        tvNotFound.setVisibility(View.GONE);
     }
 
     private void setupData() {
@@ -132,6 +205,8 @@ public class BookActivity extends AppCompatActivity {
     }
 
     private void showFiction() {
+        isFictionSelected = true;
+        resetSectionVisibility();
         catalogAdapter = new CatalogBookAdapter(fictionBooks);
         newArrivalAdapter = new CatalogBookAdapter(fictionNewArrivals);
 
@@ -146,6 +221,8 @@ public class BookActivity extends AppCompatActivity {
     }
 
     private void showNonFiction() {
+        isFictionSelected = false;
+        resetSectionVisibility();
         catalogAdapter = new CatalogBookAdapter(nonFictionBooks);
         newArrivalAdapter = new CatalogBookAdapter(nonFictionNewArrivals);
 

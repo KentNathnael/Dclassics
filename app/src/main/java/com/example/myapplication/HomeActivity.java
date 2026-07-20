@@ -2,6 +2,9 @@ package com.example.myapplication;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -30,6 +33,9 @@ public class HomeActivity extends AppCompatActivity {
     private HomeBookAdapter FeaturedBookAdapter, RecommendedBookAdapter;
     private StoreAdapter storeAdapter;
     private LinearLayout llRecommended, llStores;
+    private EditText etSearch;
+    private TextView tvFeatured, tvNotFound;
+    private LinearLayout storeCarouselControls;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -138,6 +144,64 @@ public class HomeActivity extends AppCompatActivity {
             Intent intent = new Intent(HomeActivity.this, StoreActivity.class);
             startActivity(intent);
         });
+
+        tvFeatured = findViewById(R.id.tvFeatured);
+        tvNotFound = findViewById(R.id.tvNotFound);
+        storeCarouselControls = findViewById(R.id.storeCarouselControls);
+
+        etSearch = findViewById(R.id.etSearch);
+        etSearch.addTextChangedListener(new android.text.TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                filterHomeBooks(s.toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {}
+        });
+    }
+
+    private void filterHomeBooks(String query) {
+        boolean searching = query != null && !query.trim().isEmpty();
+
+        List<book> filteredFeatured = searching ? filterByTitle(featuredBookList, query) : featuredBookList;
+        List<book> filteredRecommended = searching ? filterByTitle(recommendedBookList, query) : recommendedBookList;
+
+        FeaturedBookAdapter = new HomeBookAdapter(filteredFeatured);
+        rvFeatured.setAdapter(FeaturedBookAdapter);
+
+        RecommendedBookAdapter = new HomeBookAdapter(filteredRecommended);
+        rvRecommended.setAdapter(RecommendedBookAdapter);
+
+        boolean featuredEmpty = filteredFeatured.isEmpty();
+        boolean recommendedEmpty = filteredRecommended.isEmpty();
+
+        tvFeatured.setVisibility(featuredEmpty ? View.GONE : View.VISIBLE);
+        rvFeatured.setVisibility(featuredEmpty ? View.GONE : View.VISIBLE);
+
+        llRecommended.setVisibility(recommendedEmpty ? View.GONE : View.VISIBLE);
+        rvRecommended.setVisibility(recommendedEmpty ? View.GONE : View.VISIBLE);
+
+        int storesVisibility = searching ? View.GONE : View.VISIBLE;
+        llStores.setVisibility(storesVisibility);
+        rvStores.setVisibility(storesVisibility);
+        storeCarouselControls.setVisibility(storesVisibility);
+
+        tvNotFound.setVisibility((searching && featuredEmpty && recommendedEmpty) ? View.VISIBLE : View.GONE);
+    }
+
+    private List<book> filterByTitle(List<book> books, String query) {
+        String lowerQuery = query.trim().toLowerCase();
+        List<book> filtered = new ArrayList<>();
+        for (book b : books) {
+            if (b.getTitle() != null && b.getTitle().toLowerCase().contains(lowerQuery)) {
+                filtered.add(b);
+            }
+        }
+        return filtered;
     }
     protected void togglehamburger() {
         if (isMenuVisible) {
